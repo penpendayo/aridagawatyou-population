@@ -19,7 +19,15 @@ export const PopulationGrid: FC = () => {
 
   return (
     <div className="max-w-full h-screen w-[500px]">
-      <DataGrid rows={rows} columns={columns} sortModel={[{ field: "diffPop", sort: "desc" }]} />
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        initialState={{
+          sorting: {
+            sortModel: [{ field: "diffPop", sort: "desc" }],
+          },
+        }}
+      />
     </div>
   );
 };

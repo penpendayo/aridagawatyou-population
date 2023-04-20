@@ -31,8 +31,8 @@ export class PopulationProcessor {
       return {
         id: i + 1,
         where: c1["地域名"],
-        [col1DateOfSurvey]: c1["総人口"],
-        [col2DateOfSurvey]: col2[i]["総人口"],
+        [col1DateOfSurvey]: Number(c1["総人口"]),
+        [col2DateOfSurvey]: Number(col2[i]["総人口"]),
         diffPop: Number(col2[i]["総人口"]) - Number(c1["総人口"]),
       };
     });
