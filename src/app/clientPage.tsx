@@ -30,7 +30,7 @@ export const ClientTopPage: FC<Props> = ({ poplations }) => {
           <li>
             連絡先：<a href="https://twitter.com/penpen_dev">@penpen_dev</a>
           </li>
-          <li>ソース：GitHub</li>
+          <li>ソース：<a href="https://github.com/penpendayo/aridagawatyou-population">GitHub</a></li>
         </ul>
       </footer>
     </div>
