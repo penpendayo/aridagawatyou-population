@@ -1,10 +1,9 @@
 "use client";
 import Select from "react-select";
 import { FC } from "react";
-import { Poplation } from "./Poplation.type";
 import { PopulationProcessor } from "./PopulationProcessor";
 import { useAtom } from "jotai";
-import { selectDateAtom, poplationsAtom } from "./globalState";
+import { selectDateAtom, populationsAtom } from "./globalState";
 
 const options = [
   { value: "chocolate", label: "Chocolate" },
@@ -13,9 +12,9 @@ const options = [
 ];
 
 export const SelectDate: FC = () => {
-  const [selectDate, setSelectDate] = useAtom(selectDateAtom);
-  const [poplations] = useAtom(poplationsAtom);
-  const populationProcessor = new PopulationProcessor(poplations);
+  const [_, setSelectDate] = useAtom(selectDateAtom);
+  const [populations] = useAtom(populationsAtom);
+  const populationProcessor = new PopulationProcessor(populations);
   const dateOfSurvey = populationProcessor.getDateOfSurvey();
 
   const options = dateOfSurvey.map((s) => {
@@ -25,8 +24,7 @@ export const SelectDate: FC = () => {
     };
   });
 
-  console.log({ selectDate });
-  if (!poplations.length) return null;
+  if (!populations.length) return null;
   return (
     <div className="w-56">
       🕛From:

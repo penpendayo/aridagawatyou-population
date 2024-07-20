@@ -1,9 +1,9 @@
 "use client";
 import type { GridColDef, GridRowsProp } from "@mui/x-data-grid";
-import { Poplation } from "./Poplation.type";
+import { Population } from "./Population.type";
 export class PopulationProcessor {
-  #populations: Poplation[];
-  constructor(populations: Poplation[]) {
+  #populations: Population[];
+  constructor(populations: Population[]) {
     this.#populations = populations;
   }
 

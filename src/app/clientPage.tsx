@@ -1,21 +1,23 @@
 "use client";
 import { FC, useEffect } from "react";
-import React, { useState } from "react";
+import React from "react";
 import { PopulationGraph } from "./PopulationGraph";
-import { Poplation } from "./Poplation.type";
+import { Population } from "./Population.type";
 import { PopulationGrid } from "./PopulationGrid";
 import { SelectDate } from "./SelectDate";
-import { poplationsAtom } from "./globalState";
+import { populationsAtom } from "./globalState";
 import { useSetAtom } from "jotai";
 
 type Props = {
-  poplations: Poplation[];
+  populations: Population[];
 };
-export const ClientTopPage: FC<Props> = ({ poplations }) => {
-  const setPoplations = useSetAtom(poplationsAtom);
+export const ClientTopPage: FC<Props> = ({ populations }) => {
+  const setPopulations = useSetAtom(populationsAtom);
+
   useEffect(() => {
-    setPoplations(poplations);
-  }, [poplations, setPoplations]);
+    setPopulations(populations);
+  }, [populations, setPopulations]);
+
   return (
     <div>
       <h1>和歌山県有田川町の人口動態</h1>

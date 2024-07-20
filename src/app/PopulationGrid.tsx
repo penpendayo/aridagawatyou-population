@@ -2,15 +2,15 @@
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { FC } from "react";
 import { PopulationProcessor } from "./PopulationProcessor";
-import { Poplation } from "./Poplation.type";
+import { Population } from "./Population.type";
 import { useAtom } from "jotai";
-import { poplationsAtom, selectDateAtom } from "./globalState";
+import { populationsAtom, selectDateAtom } from "./globalState";
 
 export const PopulationGrid: FC = () => {
-  const [poplations] = useAtom(poplationsAtom);
+  const [populations] = useAtom(populationsAtom);
   const [selectDate] = useAtom(selectDateAtom);
 
-  const populationProcessor = new PopulationProcessor(poplations);
+  const populationProcessor = new PopulationProcessor(populations);
   const dateOfSurvey = populationProcessor.getDateOfSurvey();
   const { columns, rows } = populationProcessor.createGridProps(
     selectDate?.from ?? dateOfSurvey[0],

@@ -1,4 +1,4 @@
-export type Poplation = {
+export type Population = {
   市区町村コード: string;
   地域コード: string;
   都道府県名: string;

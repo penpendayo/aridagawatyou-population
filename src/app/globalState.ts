@@ -1,7 +1,6 @@
 "use client";
-import { atom, useAtom } from "jotai";
-import { Poplation } from "./Poplation.type";
-import { PopulationProcessor } from "./PopulationProcessor";
+import { atom } from "jotai";
+import { Population } from "./Population.type";
 
-export const poplationsAtom = atom<Poplation[]>([]);
+export const populationsAtom = atom<Population[]>([]);
 export const selectDateAtom = atom<{ from: string; to: string } | null>(null);
