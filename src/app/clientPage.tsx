@@ -19,6 +19,8 @@ export const ClientTopPage: FC<Props> = ({ poplations }) => {
   return (
     <div>
       <h1>和歌山県有田川町の人口動態</h1>
+      <p>和歌山県有田川町の人口推移をグラフや表にまとめたサイトです。</p>
+      <p>総人口および各地域（下津野など）の人口は、有田川町公式の人口ページのCSVファイルをもとに生成しています。</p>
       <h2>総人口推移</h2>
       <PopulationGraph />
       <h2>地域別の人口推移</h2>
