@@ -12,10 +12,16 @@ import {
 import { Line } from "react-chartjs-2";
 import { PopulationProcessor } from "./PopulationProcessor";
 import { toLineGraphData } from "./toGraphData";
-import { useAtom } from "jotai";
-import { populationsAtom } from "./globalState";
+import { Population } from "./Population.type";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend
+);
 
 const options = {
   responsive: true,
@@ -30,8 +36,9 @@ const options = {
   },
 };
 
-export const PopulationGraph: FC = () => {
-  const [populations] = useAtom(populationsAtom);
+export const PopulationGraph: FC<{ populations: Population[] }> = ({
+  populations,
+}) => {
   const populationProcessor = new PopulationProcessor(populations);
   const data = toLineGraphData(populationProcessor);
 
