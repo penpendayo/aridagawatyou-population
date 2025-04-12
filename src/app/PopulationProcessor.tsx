@@ -32,8 +32,8 @@ export class PopulationProcessor {
         id: i + 1,
         where: c1["地域名"],
         [col1DateOfSurvey]: Number(c1["総人口"]),
-        [col2DateOfSurvey]: Number(col2[i]["総人口"]),
-        diffPop: Number(col2[i]["総人口"]) - Number(c1["総人口"]),
+        [col2DateOfSurvey]: Number(col2.find((c2) => c2["地域名"] === c1["地域名"])?.["総人口"] ?? 0),
+        diffPop: Number(col2.find((c2) => c2["地域名"] === c1["地域名"])?.["総人口"] ?? 0) - Number(c1["総人口"]),
       };
     });
     const columns: GridColDef[] = [
