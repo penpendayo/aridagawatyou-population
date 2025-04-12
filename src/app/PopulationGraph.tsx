@@ -11,7 +11,6 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { PopulationProcessor } from "./PopulationProcessor";
-import { toLineGraphData } from "./toGraphData";
 import { Population } from "./Population.type";
 
 ChartJS.register(
@@ -40,7 +39,18 @@ export const PopulationGraph: FC<{ populations: Population[] }> = ({
   populations,
 }) => {
   const populationProcessor = new PopulationProcessor(populations);
-  const data = toLineGraphData(populationProcessor);
+
+  const data = {
+    labels: populationProcessor.getDateOfSurvey(),
+    datasets: [
+      {
+        label: "人口",
+        data: populationProcessor.getTotalPopulation(),
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
 
   return (
     <div className="max-w-full w-[800px]">
