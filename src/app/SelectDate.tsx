@@ -1,6 +1,6 @@
 "use client";
 import Select from "react-select";
-import { FC } from "react";
+import { FC, useState, useMemo } from "react";
 import { PopulationProcessor } from "./PopulationProcessor";
 import { Population } from "./Population.type";
 
@@ -35,12 +35,30 @@ export const SelectDate: FC<{
   const populationProcessor = new PopulationProcessor(populations);
   const dateOfSurvey = populationProcessor.getDateOfSurvey();
 
-  const options = dateOfSurvey.map((s) => {
-    return {
-      value: s,
-      label: s,
-    };
-  });
+  const allOptions = useMemo(
+    () =>
+      dateOfSurvey.map((s, index) => ({
+        value: s,
+        label: s,
+        index,
+      })),
+    [dateOfSurvey]
+  );
+
+  const [fromIndex, setFromIndex] = useState(0);
+  const [toIndex, setToIndex] = useState(allOptions.length - 1);
+
+  // 開始日のオプション: 終了日以前のもののみ
+  const fromOptions = useMemo(
+    () => allOptions.filter((opt) => opt.index <= toIndex),
+    [allOptions, toIndex]
+  );
+
+  // 終了日のオプション: 開始日以降のもののみ
+  const toOptions = useMemo(
+    () => allOptions.filter((opt) => opt.index >= fromIndex),
+    [allOptions, fromIndex]
+  );
 
   if (!populations.length) return null;
 
@@ -51,16 +69,18 @@ export const SelectDate: FC<{
           開始日
         </label>
         <Select
-          options={options}
-          defaultValue={options[0]}
+          options={fromOptions}
+          value={allOptions[fromIndex]}
           styles={selectStyles}
-          onChange={(e) =>
+          onChange={(e) => {
+            if (!e) return;
+            setFromIndex(e.index);
             setSelectDate((prev) => {
               if (!prev)
-                return { to: options[options.length - 1].label, from: e?.label! };
-              return { ...prev, from: e?.label! };
-            })
-          }
+                return { to: allOptions[allOptions.length - 1].label, from: e.label };
+              return { ...prev, from: e.label };
+            });
+          }}
         />
       </div>
       <div className="flex-1 max-w-xs">
@@ -68,15 +88,17 @@ export const SelectDate: FC<{
           終了日
         </label>
         <Select
-          options={options}
-          defaultValue={options[options.length - 1]}
+          options={toOptions}
+          value={allOptions[toIndex]}
           styles={selectStyles}
-          onChange={(e) =>
+          onChange={(e) => {
+            if (!e) return;
+            setToIndex(e.index);
             setSelectDate((prev) => {
-              if (!prev) return { to: e?.label!, from: options[0].label };
-              return { ...prev, to: e?.label! };
-            })
-          }
+              if (!prev) return { to: e.label, from: allOptions[0].label };
+              return { ...prev, to: e.label };
+            });
+          }}
         />
       </div>
     </div>
