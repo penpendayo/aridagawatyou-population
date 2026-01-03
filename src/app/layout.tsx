@@ -1,4 +1,4 @@
-import "./globals.css"
+import "./globals.css";
 
 export const metadata = {
   title: "和歌山県有田川町の人口動態",
@@ -8,7 +8,11 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja">
-        <body>{children}</body>
+      <body className="antialiased">
+        <div className="max-w-5xl mx-auto px-4 py-8">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

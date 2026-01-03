@@ -8,6 +8,7 @@ import {
   LineElement,
   Tooltip,
   Legend,
+  Filler,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { PopulationProcessor } from "./PopulationProcessor";
@@ -19,18 +20,41 @@ ChartJS.register(
   PointElement,
   LineElement,
   Tooltip,
-  Legend
+  Legend,
+  Filler
 );
 
 const options = {
   responsive: true,
+  maintainAspectRatio: true,
   plugins: {
     legend: {
-      position: "top" as const,
+      display: false,
     },
-    title: {
-      display: true,
-      text: "Chart.js Line Chart",
+    tooltip: {
+      backgroundColor: "rgba(30, 41, 59, 0.9)",
+      padding: 12,
+      titleFont: { size: 14 },
+      bodyFont: { size: 13 },
+      cornerRadius: 8,
+    },
+  },
+  scales: {
+    x: {
+      grid: {
+        display: false,
+      },
+      ticks: {
+        color: "#64748b",
+      },
+    },
+    y: {
+      grid: {
+        color: "rgba(148, 163, 184, 0.2)",
+      },
+      ticks: {
+        color: "#64748b",
+      },
     },
   },
 };
@@ -46,15 +70,22 @@ export const PopulationGraph: FC<{ populations: Population[] }> = ({
       {
         label: "人口",
         data: populationProcessor.getTotalPopulation(),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderColor: "rgb(59, 130, 246)",
+        backgroundColor: "rgba(59, 130, 246, 0.1)",
+        fill: true,
+        tension: 0.3,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        pointBackgroundColor: "rgb(59, 130, 246)",
+        pointBorderColor: "#fff",
+        pointBorderWidth: 2,
       },
     ],
   };
 
   return (
-    <div className="max-w-full w-[800px]">
-      <Line options={options} data={data} width={800} height={300} />
+    <div className="w-full">
+      <Line options={options} data={data} />
     </div>
   );
 };
