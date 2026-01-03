@@ -1,5 +1,5 @@
 "use client";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -59,17 +59,38 @@ const options = {
   },
 };
 
-export const PopulationGraph: FC<{ populations: Population[] }> = ({
-  populations,
-}) => {
+export const PopulationGraph: FC<{
+  populations: Population[];
+  selectDate: { from: string; to: string } | null;
+}> = ({ populations, selectDate }) => {
   const populationProcessor = new PopulationProcessor(populations);
+  const allDates = populationProcessor.getDateOfSurvey();
+  const allPopulations = populationProcessor.getTotalPopulation();
+
+  const { labels, dataPoints } = useMemo(() => {
+    if (!selectDate) {
+      return { labels: allDates, dataPoints: allPopulations };
+    }
+
+    const fromIndex = allDates.indexOf(selectDate.from);
+    const toIndex = allDates.indexOf(selectDate.to);
+
+    if (fromIndex === -1 || toIndex === -1) {
+      return { labels: allDates, dataPoints: allPopulations };
+    }
+
+    return {
+      labels: allDates.slice(fromIndex, toIndex + 1),
+      dataPoints: allPopulations.slice(fromIndex, toIndex + 1),
+    };
+  }, [allDates, allPopulations, selectDate]);
 
   const data = {
-    labels: populationProcessor.getDateOfSurvey(),
+    labels,
     datasets: [
       {
         label: "人口",
-        data: populationProcessor.getTotalPopulation(),
+        data: dataPoints,
         borderColor: "rgb(59, 130, 246)",
         backgroundColor: "rgba(59, 130, 246, 0.1)",
         fill: true,
@@ -84,8 +105,8 @@ export const PopulationGraph: FC<{ populations: Population[] }> = ({
   };
 
   return (
-    <div className="w-full">
-      <Line options={options} data={data} />
+    <div className="w-full h-64">
+      <Line options={{ ...options, maintainAspectRatio: false }} data={data} />
     </div>
   );
 };

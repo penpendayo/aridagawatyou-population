@@ -26,18 +26,21 @@ export const ClientTopPage: FC<Props> = ({ populations }) => {
         </p>
       </header>
 
+      {/* Date Selection */}
+      <section className="card">
+        <h2 className="section-title">期間を選択</h2>
+        <SelectDate populations={populations} setSelectDate={setSelectDate} />
+      </section>
+
       {/* Total Population Graph */}
       <section className="card">
         <h2 className="section-title">総人口推移</h2>
-        <PopulationGraph populations={populations} />
+        <PopulationGraph populations={populations} selectDate={selectDate} />
       </section>
 
       {/* Regional Population */}
       <section className="card">
         <h2 className="section-title">地域別の人口推移</h2>
-        <div className="mb-6">
-          <SelectDate populations={populations} setSelectDate={setSelectDate} />
-        </div>
         <PopulationGrid populations={populations} selectDate={selectDate} />
       </section>
 
