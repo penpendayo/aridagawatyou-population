@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://penpendayo.github.io/aridagawatyou-population/sitemap.xml

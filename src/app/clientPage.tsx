@@ -45,12 +45,15 @@ export const ClientTopPage: FC<Props> = ({ populations }) => {
           <span className="h-px flex-1 max-w-12 bg-ink" />
         </div>
         <h1 className="font-display text-4xl md:text-6xl font-bold text-ink leading-[1.05] tracking-tight text-center">
-          有田川町
+          和歌山県有田川町
           <br className="md:hidden" />
           <span className="text-vermillion">人口動態</span>
         </h1>
+        <p className="mt-4 text-xs md:text-sm text-ink-faint text-center tracking-wider">
+          地区別・月次の人口推移グラフ
+        </p>
         <p className="mt-8 text-sm md:text-[0.95rem] text-ink-soft leading-loose max-w-xl mx-auto text-center">
-          有田川町公式の人口ページのCSVをもとに、町全体および地域別の人口推移を可視化したサイトです。
+          和歌山県有田郡有田川町が公開している人口統計CSVをもとに、町全体の総人口推移と、地区ごとの月次人口・増減を可視化したサイトです。期間を指定して、有田川町の人口動態をグラフと一覧でご覧いただけます。
         </p>
       </header>
 
@@ -70,8 +73,8 @@ export const ClientTopPage: FC<Props> = ({ populations }) => {
       <section className="reveal reveal-3 py-14 md:py-20 border-b border-rule">
         <SectionHeader
           numeral="Ⅰ"
-          title="総人口推移"
-          subtitle="町全体の人口の変化を年月日ごとにプロット"
+          title="有田川町 総人口の推移"
+          subtitle="町全体の人口の変化を年月日ごとに折れ線グラフでプロット"
         />
         <PopulationGraph populations={populations} selectDate={selectDate} />
       </section>
@@ -80,8 +83,8 @@ export const ClientTopPage: FC<Props> = ({ populations }) => {
       <section className="reveal reveal-4 py-14 md:py-20 border-b border-rule">
         <SectionHeader
           numeral="Ⅱ"
-          title="地域別の人口推移"
-          subtitle="各地域の選択期間における人口と増減を一覧（増減順）"
+          title="有田川町 地区別の人口推移"
+          subtitle="町内各地区の選択期間における人口と増減を増減順で一覧表示"
         />
         <PopulationGrid populations={populations} selectDate={selectDate} />
       </section>
