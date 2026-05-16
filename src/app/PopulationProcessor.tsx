@@ -36,31 +36,65 @@ export class PopulationProcessor {
         diffPop: Number(col2.find((c2) => c2["地域名"] === c1["地域名"])?.["総人口"] ?? 0) - Number(c1["総人口"]),
       };
     });
+    const formatNum = (n: number) => n.toLocaleString();
     const columns: GridColDef[] = [
-      { field: "where", headerName: "場所", width: 100 },
-      { field: col1DateOfSurvey, headerName: `🕛From:${col1DateOfSurvey}`, width: 140 },
-      { field: col2DateOfSurvey, headerName: `🕛To:${col2DateOfSurvey}`, width: 140 },
+      {
+        field: "where",
+        headerName: "地域",
+        flex: 1,
+        minWidth: 100,
+        renderCell: (params) => (
+          <span style={{ fontFamily: "var(--font-display)", fontWeight: 500 }}>
+            {params.row.where}
+          </span>
+        ),
+      },
+      {
+        field: col1DateOfSurvey,
+        headerName: col1DateOfSurvey,
+        flex: 1.4,
+        minWidth: 130,
+        type: "number",
+        align: "right",
+        headerAlign: "right",
+        valueFormatter: (value: number) => formatNum(value),
+      },
+      {
+        field: col2DateOfSurvey,
+        headerName: col2DateOfSurvey,
+        flex: 1.4,
+        minWidth: 130,
+        type: "number",
+        align: "right",
+        headerAlign: "right",
+        valueFormatter: (value: number) => formatNum(value),
+      },
       {
         field: "diffPop",
-        headerName: "増減値",
-        width: 100,
-        renderCell: (params) => (
-          <div
-            style={{
-              backgroundColor: params.row.diffPop < 0 ? "#e8b9b9" : "#a0ecbd",
-              color: params.row.diffPop < 0 ? "#af3838" : "#12542b",
-              height: "100%",
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              textAlign: "center", 
-              fontSize: "1.2rem",
-            }}
-          >
-            {params.row.diffPop}
-          </div>
-        ),
+        headerName: "増減",
+        flex: 1,
+        minWidth: 100,
+        type: "number",
+        align: "right",
+        headerAlign: "right",
+        renderCell: (params) => {
+          const v = params.row.diffPop as number;
+          const color = v < 0 ? "#b3361f" : v > 0 ? "#2b3a5a" : "#8a8275";
+          const text = v > 0 ? `+${formatNum(v)}` : formatNum(v);
+          return (
+            <span
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontVariantNumeric: "tabular-nums",
+                color,
+                fontWeight: 500,
+                fontSize: "0.95rem",
+              }}
+            >
+              {text}
+            </span>
+          );
+        },
       },
     ];
     return { rows, columns };

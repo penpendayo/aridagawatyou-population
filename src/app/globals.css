@@ -1,46 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --color-slate-50: #f8fafc;
-  --color-slate-100: #f1f5f9;
-  --color-slate-200: #e2e8f0;
-  --color-slate-600: #475569;
-  --color-slate-700: #334155;
-  --color-slate-800: #1e293b;
-  --color-blue-50: #eff6ff;
-  --color-blue-500: #3b82f6;
-  --color-blue-600: #2563eb;
-  --color-blue-800: #1e40af;
+  --color-paper: #f6f1e6;
+  --color-paper-deep: #ede5d2;
+  --color-ink: #1c1a17;
+  --color-ink-soft: #4d473f;
+  --color-ink-faint: #8a8275;
+  --color-rule: #d8cfba;
+  --color-rule-soft: #e7dfca;
+  --color-vermillion: #b3361f;
+  --color-vermillion-soft: #d96a55;
+  --color-indigo: #2b3a5a;
+  --color-indigo-soft: #5a719d;
+
+  --font-display: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
+  --font-body: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
+}
+
+html {
+  background-color: var(--color-paper);
 }
 
 body {
-  background: linear-gradient(to bottom right, var(--color-slate-50), var(--color-blue-50));
-  min-height: 100vh;
-  color: var(--color-slate-800);
+  background-color: var(--color-paper);
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(28, 26, 23, 0.05) 1px,
+    transparent 0
+  );
+  background-size: 22px 22px;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-feature-settings: "palt", "calt", "tnum";
+  letter-spacing: 0.01em;
 }
 
-.card {
-  background-color: white;
-  border-radius: 1rem;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  padding: 1.5rem;
-  border: 1px solid var(--color-slate-100);
+.font-display {
+  font-family: var(--font-display);
 }
 
-.section-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-slate-700);
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.font-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum";
 }
 
-.section-title::before {
-  content: "";
-  width: 0.25rem;
-  height: 1.5rem;
-  background-color: var(--color-blue-500);
-  border-radius: 9999px;
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  animation: fade-up 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+
+.reveal-1 {
+  animation-delay: 0.05s;
+}
+.reveal-2 {
+  animation-delay: 0.2s;
+}
+.reveal-3 {
+  animation-delay: 0.35s;
+}
+.reveal-4 {
+  animation-delay: 0.5s;
 }

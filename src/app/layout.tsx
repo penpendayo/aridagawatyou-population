@@ -9,9 +9,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ja">
       <body className="antialiased">
-        <div className="max-w-5xl mx-auto px-4 py-8">
-          {children}
-        </div>
+        <div className="mx-auto max-w-5xl px-6 md:px-12 py-10 md:py-16">{children}</div>
       </body>
     </html>
   );

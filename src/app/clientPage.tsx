@@ -9,67 +9,101 @@ type Props = {
   populations: Population[];
 };
 
+const SectionHeader: FC<{ numeral: string; title: string; subtitle: string }> = ({
+  numeral,
+  title,
+  subtitle,
+}) => (
+  <div className="grid grid-cols-[2.5rem_1fr] md:grid-cols-[3.5rem_1fr] gap-x-4 items-baseline mb-8">
+    <span
+      aria-hidden
+      className="font-display text-3xl md:text-4xl text-vermillion font-bold leading-none"
+    >
+      {numeral}
+    </span>
+    <div>
+      <h2 className="font-display text-xl md:text-2xl font-bold text-ink tracking-tight">
+        {title}
+      </h2>
+      <p className="mt-1.5 text-xs md:text-sm text-ink-soft">{subtitle}</p>
+    </div>
+  </div>
+);
+
 export const ClientTopPage: FC<Props> = ({ populations }) => {
   const [selectDate, setSelectDate] = useState<{ from: string; to: string } | null>(null);
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <header className="text-center py-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
-          和歌山県有田川町の人口動態
+    <article>
+      {/* Masthead */}
+      <header className="reveal reveal-1 pb-10 border-b border-rule">
+        <div className="flex items-center gap-3 mb-6">
+          <span className="h-px flex-1 max-w-12 bg-ink" />
+          <p className="font-display text-[0.7rem] md:text-xs tracking-[0.4em] text-ink-soft uppercase">
+            Wakayama · Aridagawa
+          </p>
+          <span className="h-px flex-1 max-w-12 bg-ink" />
+        </div>
+        <h1 className="font-display text-4xl md:text-6xl font-bold text-ink leading-[1.05] tracking-tight text-center">
+          有田川町
+          <br className="md:hidden" />
+          <span className="text-vermillion">人口動態</span>
         </h1>
-        <p className="text-slate-600 max-w-2xl mx-auto leading-relaxed">
-          和歌山県有田川町の人口推移をグラフや表にまとめたサイトです。
-          <br className="hidden sm:block" />
-          総人口および各地域の人口は、有田川町公式の人口ページのCSVファイルをもとに生成しています。
+        <p className="mt-8 text-sm md:text-[0.95rem] text-ink-soft leading-loose max-w-xl mx-auto text-center">
+          有田川町公式の人口ページのCSVをもとに、町全体および地域別の人口推移を可視化したサイトです。
         </p>
       </header>
 
-      {/* Date Selection */}
-      <section className="card">
-        <h2 className="section-title">期間を選択</h2>
-        <SelectDate populations={populations} setSelectDate={setSelectDate} />
-      </section>
+      {/* Filter strip */}
+      <div className="reveal reveal-2 sticky top-0 z-20 -mx-6 md:-mx-12 px-6 md:px-12 py-4 bg-paper/90 backdrop-blur-sm border-b border-rule">
+        <div className="flex items-baseline gap-4 md:gap-6 flex-wrap">
+          <span className="font-display text-xs tracking-[0.3em] text-ink-faint uppercase shrink-0">
+            表示期間
+          </span>
+          <div className="flex-1 min-w-[260px] max-w-2xl">
+            <SelectDate populations={populations} setSelectDate={setSelectDate} />
+          </div>
+        </div>
+      </div>
 
-      {/* Total Population Graph */}
-      <section className="card">
-        <h2 className="section-title">総人口推移</h2>
+      {/* Section I — Total */}
+      <section className="reveal reveal-3 py-14 md:py-20 border-b border-rule">
+        <SectionHeader
+          numeral="Ⅰ"
+          title="総人口推移"
+          subtitle="町全体の人口の変化を年月日ごとにプロット"
+        />
         <PopulationGraph populations={populations} selectDate={selectDate} />
       </section>
 
-      {/* Regional Population */}
-      <section className="card">
-        <h2 className="section-title">地域別の人口推移</h2>
+      {/* Section II — Regional */}
+      <section className="reveal reveal-4 py-14 md:py-20 border-b border-rule">
+        <SectionHeader
+          numeral="Ⅱ"
+          title="地域別の人口推移"
+          subtitle="各地域の選択期間における人口と増減を一覧（増減順）"
+        />
         <PopulationGrid populations={populations} selectDate={selectDate} />
       </section>
 
       {/* Footer */}
-      <footer className="card bg-slate-50">
-        <h2 className="section-title">このページについて</h2>
-        <ul className="space-y-2 text-slate-600">
-          <li className="flex items-center gap-2">
-            <span className="text-blue-500">X</span>
-            <span>連絡先：</span>
-            <a
-              href="https://twitter.com/penpen_dev"
-              className="text-blue-600 hover:text-blue-800 hover:underline transition-colors"
-            >
-              @penpen_dev
-            </a>
-          </li>
-          <li className="flex items-center gap-2">
-            <span className="text-slate-700">GitHub</span>
-            <span>ソース：</span>
-            <a
-              href="https://github.com/penpendayo/aridagawatyou-population"
-              className="text-blue-600 hover:text-blue-800 hover:underline transition-colors"
-            >
-              aridagawatyou-population
-            </a>
-          </li>
-        </ul>
+      <footer className="pt-10 pb-4 text-xs text-ink-faint">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-display">
+          <span className="tracking-wider">出典　有田川町</span>
+          <a
+            href="https://twitter.com/penpen_dev"
+            className="hover:text-vermillion transition-colors tracking-wider"
+          >
+            X / @penpen_dev
+          </a>
+          <a
+            href="https://github.com/penpendayo/aridagawatyou-population"
+            className="hover:text-vermillion transition-colors tracking-wider"
+          >
+            GitHub / aridagawatyou-population
+          </a>
+        </div>
       </footer>
-    </div>
+    </article>
   );
 };

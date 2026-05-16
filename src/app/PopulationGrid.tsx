@@ -16,35 +16,83 @@ export const PopulationGrid: FC<{
   );
 
   return (
-    <div className="w-full h-[500px] rounded-lg overflow-hidden border border-slate-200">
+    <div className="w-full border-y-2 border-ink">
       <DataGrid
         rows={rows}
         columns={columns}
         initialState={{
-          sorting: {
-            sortModel: [{ field: "diffPop", sort: "desc" }],
-          },
+          sorting: { sortModel: [{ field: "diffPop", sort: "desc" }] },
         }}
+        hideFooter
+        disableColumnMenu
+        disableVirtualization
         sx={{
           border: "none",
+          backgroundColor: "transparent",
+          height: "auto !important",
+          "--DataGrid-containerBackground": "transparent",
+          fontFamily: "var(--font-body)",
+          color: "#1c1a17",
+          "& .MuiDataGrid-main": { height: "auto !important" },
+          "& .MuiDataGrid-virtualScroller": {
+            height: "auto !important",
+            overflow: "visible !important",
+          },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: "#f8fafc",
-            borderBottom: "1px solid #e2e8f0",
+            backgroundColor: "transparent",
+            borderBottom: "1px solid #1c1a17",
+          },
+          "& .MuiDataGrid-columnHeader": {
+            backgroundColor: "transparent",
+            outline: "none !important",
           },
           "& .MuiDataGrid-columnHeaderTitle": {
-            fontWeight: 600,
-            color: "#475569",
+            fontFamily: 'var(--font-display)',
+            fontWeight: 700,
+            fontSize: "0.8rem",
+            letterSpacing: "0.08em",
+            color: "#1c1a17",
           },
           "& .MuiDataGrid-cell": {
-            borderBottom: "1px solid #f1f5f9",
+            borderBottom: "1px solid #e7dfca",
+            outline: "none !important",
+            fontSize: "0.9rem",
+          },
+          "& .MuiDataGrid-cell--textRight, & .MuiDataGrid-cell--textCenter": {
+            fontFamily: "var(--font-mono)",
+            fontVariantNumeric: "tabular-nums",
+          },
+          "& .MuiDataGrid-row": {
+            backgroundColor: "transparent",
           },
           "& .MuiDataGrid-row:hover": {
-            backgroundColor: "#f8fafc",
+            backgroundColor: "rgba(28, 26, 23, 0.04)",
           },
+          "& .MuiDataGrid-row.Mui-selected": {
+            backgroundColor: "rgba(43, 58, 90, 0.1)",
+          },
+          "& .MuiDataGrid-row.Mui-selected:hover": {
+            backgroundColor: "rgba(43, 58, 90, 0.14)",
+          },
+          "& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within, & .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within":
+            {
+              outline: "none !important",
+            },
           "& .MuiDataGrid-footerContainer": {
-            borderTop: "1px solid #e2e8f0",
-            backgroundColor: "#f8fafc",
+            borderTop: "1px solid #1c1a17",
+            backgroundColor: "transparent",
+            minHeight: "44px",
           },
+          "& .MuiTablePagination-root": {
+            color: "#4d473f",
+            fontFamily: "var(--font-display)",
+            fontSize: "0.75rem",
+          },
+          "& .MuiDataGrid-filler, & .MuiDataGrid-scrollbarFiller": {
+            backgroundColor: "transparent",
+          },
+          "& .MuiDataGrid-columnSeparator": { display: "none" },
+          "& .MuiDataGrid-sortIcon": { color: "#b3361f" },
         }}
       />
     </div>
